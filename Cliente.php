@@ -51,6 +51,24 @@ class Cliente {//nombre, apellido,dado de baja,tipo y el númer de doc
     public function set_nro_dni($dni){
         $this->nroDni=$dni;
     }
+
+   
+    // Si un cliente está dado de baja, no puede registrar compras desde el momento de su baja.
+
+    public function registroCompra(){
+        $dadoBaja=$this->getDadoBaja();
+        $rta=false;
+        if ($dadoBaja) {
+            $rta=true;
+        }
+        return $rta;
+
+    }
+
+
+
+
+
     public function __toString(){
         $nom=$this->getNomb();
         $ap=$this->getApellido();
