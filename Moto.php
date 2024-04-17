@@ -19,7 +19,7 @@ class Moto {
         $this->anoFabricacion = $anoFabr;
         $this->descripcion = $desc;
         $this->porcentajeIncrementoAnual = $porcIncrAnual;
-        $this->activa = $act;
+        $this->activa = $act;//moto disponible para la venta (true)
     }
 
     public function getCodigo() {
@@ -73,22 +73,26 @@ class Moto {
         $this->activa = $act;
     }
 
-    public function darPrecioVenta()
-    {
-        $_venta= -1;//inicializamos valor venta, si la moto no esta para la venta retorna -1
-        $_compra=$this->getCosto();//llamamos al precio de costo
-        $activa= $this->getActiva(); //verificamos si esta activa (true o false)con respecto a la venta
-        $anioFab=$this->getAnoFabricacion();//obtenemos el año de fabricacion
-        $anio_actual = date("Y");//obtenemos el año actual
-        $anio = $anio_actual-$anioFab;//calculamos los años que pasaron desde el año de fabricacion al año actual
-        $por_inc_anual=$this->getPorcentajeIncrementoAnual();//accedemos al porcentaje anual
+    // FUNCIONES 
+
+    public function darPrecioVenta(){
+        $_venta = -1; // Inicializamos el valor de venta, si la moto no está disponible para la venta retorna -1
+        $_compra = $this->getCosto(); // Obtenemos el precio de compra de la moto
+        $activa = $this->getActiva(); // Verificamos si la moto está activa para la venta (true o false)
+        
         if ($activa) {
-
-            $_venta = $_compra + $_compra * ($anio * $por_inc_anual);//calculamos el valor de venta final, devuelve un numero >0
+            $anioFab = $this->getAnoFabricacion(); // Obtenemos el año de fabricación de la moto
+            $anio_actual = date("Y"); // Obtenemos el año actual
+            $anio = $anio_actual - $anioFab; // Calculamos los años transcurridos desde el año de fabricación hasta el año actual
+            $por_inc_anual = $this->getPorcentajeIncrementoAnual(); // Obtenemos el porcentaje de incremento anual
+            
+            // Calculamos el valor de venta final
+            $_venta = $_compra + $_compra * ($anio * $por_inc_anual);
         }
-        return $_venta;// retornamos el valor de venta
-
+        
+        return $_venta; // Retornamos el valor de venta (double)
     }
+    
 
 //  SE MUESTRAN SOLO LOS ATRIBUTOS.
     public function __toString() {
@@ -101,4 +105,9 @@ class Moto {
         return $info;
     }   
 }
+
+
+
+
+
 
