@@ -102,7 +102,7 @@ public function registrarVenta($colCodigosMoto, $objCliente) {
         $codigo = $objMoto->getCodigo(); // Obtener el código de la motocicleta en lugar de la clase Cliente
 
 
-        if ($colCodigosMoto == $codigo) { // Comparar el código de la moto con los códigos de la colección de motos
+        if ($colCodigosMoto[$i] == $codigo) { // Comparar el código de la moto con los códigos de la colección de motos
             $estado = $objCliente->getDadoBaja();
             if (!$estado && $objMoto->getActiva()) { // Verificar si el cliente no está dado de baja y la moto está activa
                 $objVenta->incorporarMoto($objMoto); // Incorporar la moto a la venta
