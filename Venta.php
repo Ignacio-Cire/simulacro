@@ -13,14 +13,15 @@ Utilizar el método que calcula el precio de venta de la arraysMotoso donde crea
 class Venta {
     private $numero;
     private $fecha;
-    private $cliente;
+    private $objCliente;
     private $arraysMotos;
     private $precioFinal;
+    
 
-    public function __construct($nro, $fecha, $cli, $arraysMotos, $preFin) {
+    public function __construct($nro, $fecha,Cliente $objCliente, $arraysMotos, $preFin) {
         $this->numero = $nro;
         $this->fecha = $fecha;
-        $this->cliente = $cli;
+        $this->ObjCliente = $objCliente;
         $this->arraysMotosos = $arraysMotos;
         $this->precioFinal = $preFin;
     }
@@ -33,7 +34,7 @@ class Venta {
         return $this->fecha;
     }
 
-    public function getCliente() {
+    public function getObjCliente() {
         return $this->cliente;
     }
 
@@ -44,6 +45,9 @@ class Venta {
     public function getPrecioFinal() {
         return $this->precioFinal;
     }
+   
+
+    // Metodos set
 
     public function setNumero($nro) {
         $this->numero = $nro;
@@ -53,7 +57,7 @@ class Venta {
         $this->fecha = $fecha;
     }
 
-    public function setCliente($cli) {
+    public function setObCliente($cli) {
         $this->cliente = $cli;
     }
 
@@ -64,26 +68,22 @@ class Venta {
     public function setPrecioFinal($preFin) {
         $this->precioFinal = $preFin;
     }
+   
+    /*Implementar el método incorporarMoto($objMoto) que recibe por parámetro un objeto moto y lo
+incorpora a la colección de motos de la venta, siempre y cuando sea posible la venta. El método cada vez que incorpora una moto a la venta, debe actualizar la variable instancia precio final de la venta.Utilizar el método que calcula el precio de venta de la moto donde crea necesario.**/
 
     public function incorporarMoto($objMoto){
         $precioMotoVenta= $objMoto->darPrecioVenta();//obtenemos el precio final
         $arrayMotos=$this->getArraysMotos();//accedo a la coleccion de motos
-        if ($precioMotoVenta>0) {
+        if ($objMoto->getActiva()) {
             array_push($arrayMotos,$objMoto);//agrego el objeto moto a la coleccion
-            $this->setArraysMotos($arraysMotos);//cambie el valor del arrays
-            $this->setPrecioFinal($precioMotoVenta);//cambie el precio de venta
+            $this->setArraysMotos($arraysMotos);//cambia el valor del arrays
+            $this->setPrecioFinal($precioMotoVenta);//cambia el precio de venta
         }
 
     }
 
-    // 
-    private function obtValoresArrays($array){
-        $cadena="";
-        foreach ($array as $elementoArray) {
-            $cadena = $cadena . " " . $elementoArray . "\n";
-        }
-        return $cadena;
-    }
+    
 
 
 
@@ -91,7 +91,7 @@ class Venta {
         $arraysMotos=obtValoresArrays($this->getArraysMotos());
         $rta = "Número de Venta: " . $this->getNumero() . "\n";
         $rta .= "Fecha: " . $this->getFecha() . "\n";
-        $rta .= "Cliente: " . $this->getCliente() . "\n";
+        $rta .= "Cliente: " . $this->getObjCliente() . "\n";
         $rta .= "coleccion de motos:" . $arraysMotos . "\n";
         $rta .= ":\n";
         $rta .= "Precio Final: " . $this->getPrecioFinal() . "\n";
